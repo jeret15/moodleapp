@@ -1,0 +1,43 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'macos-latest'
+
+steps:
+    
+- task: InstallAppleCertificate@2
+  inputs:
+    certSecureFile: 'Certificates.p12'
+    certPwd: '$(password)'
+    keychain: 'temp'
+
+- task: InstallAppleProvisioningProfile@1
+  inputs:
+    provisioningProfileLocation: 'secureFiles'
+    provProfileSecureFile: 'Moodletest.mobileprovision'
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: '11.x'
+
+- script: |
+    npm install
+  displayName: 'Run NPM install'
+
+- script: |
+    npx cordova prepare
+  displayName: 'Prepare cordova files'
+
+- script: |
+    npx gulp
+  displayName: 'Run Gulp'
+
+- script: |
+    npx ionic cordova platform remove ios
+    npx ionic cordova platform add ios
+  displayName: 'Add iOS resources'
+  
+- script: |
+    npx ionic cordova run ios --aot
+  displayName: 'Build iOS app'
