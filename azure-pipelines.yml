@@ -26,7 +26,11 @@ steps:
   displayName: 'Run NPM install'
 
 - script: |
-    npx cordova prepare --force
+    npx ionic cordova platform remove ios
+  displayName: 'Remove iOS resources'
+
+- script: |
+    npx cordova prepare
   displayName: 'Prepare cordova files'
 
 - script: |
@@ -34,7 +38,6 @@ steps:
   displayName: 'Run Gulp'
 
 - script: |
-    npx ionic cordova platform remove ios
     npx ionic cordova platform add ios
   displayName: 'Add iOS resources'
   
