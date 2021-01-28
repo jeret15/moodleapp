@@ -42,5 +42,5 @@ steps:
   displayName: 'Add iOS resources'
   
 - script: |
-    npx ionic cordova run ios --aot
+    npx ionic cordova run ios --aot  --prod --release
   displayName: 'Build iOS app'
