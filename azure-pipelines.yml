@@ -26,7 +26,7 @@ steps:
   displayName: 'Run NPM install'
 
 - script: |
-    npx cordova prepare
+    npx cordova prepare --force
   displayName: 'Prepare cordova files'
 
 - script: |
